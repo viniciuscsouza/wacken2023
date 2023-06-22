@@ -13,6 +13,26 @@ import Paper from '@mui/material/Paper';
 import { Checkbox } from '@mui/material';
 import { TabContext } from '../../data/tabContext';
 
+interface FestivalEvent {
+  index: number;
+  band: string;
+  stage: string;
+  festivalDay: {
+    day: string;
+    start: string;
+    end: string;
+  };
+}
+
+function sortEventsByStartTime(events: FestivalEvent[]): FestivalEvent[] {
+  return events.sort((a, b) => {
+    const startTimeA = parseInt(a.festivalDay.start);
+    const startTimeB = parseInt(b.festivalDay.start);
+    
+    return startTimeA - startTimeB;
+  });
+}
+
 function getWeekDayName(number: number): string | null {
   const weekDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -28,7 +48,7 @@ export default function BasicTable() {
   const eventData = useContext(EventContext)
   const { tabValue } = useContext(TabContext)!
   
-  const rows = eventData?.map((data, index) => {
+  const rows: FestivalEvent[] = eventData?.map((data, index) => {
     return {
       index: index,
       band: data.artists[0].title,
@@ -39,7 +59,9 @@ export default function BasicTable() {
         end: convertToHourAndMinute(data.end)
       } 
     }
-  })
+  })!
+
+  const sortedRows = sortEventsByStartTime(rows);
 
   const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
     const selectedIndex = selected.indexOf(name);
@@ -76,7 +98,7 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          { rows !== undefined && rows.map((row) => {
+          { sortedRows !== undefined && sortedRows.map((row) => {
             const isItemSelected = isSelected(row.band);
             const labelId = `enhanced-table-checkbox-${row.index}`;
             const weekDayName = getWeekDayName(tabValue)
