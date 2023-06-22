@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import BasicTable from './components/BasicTable/BasicTable';
 import Container from '@mui/material/Container';
 import { EventProvider } from './data/eventContext';
-import Home from './components/BasicTable/Home';
+import Home from './pages/Home';
+import { TabProvider } from './data/tabContext';
 
 
 const darkTheme = createTheme({
@@ -17,12 +17,14 @@ const darkTheme = createTheme({
 export default function App() {
   return (
     <EventProvider>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-          <Container maxWidth='xl'>
-            <BasicTable />
-          </Container>
-      </ThemeProvider>
+      <TabProvider>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
+            <Container maxWidth='xl'>
+              <Home />
+            </Container>
+        </ThemeProvider>
+      </TabProvider>
     </EventProvider>
   );
 }
