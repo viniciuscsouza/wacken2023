@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import { EventProvider } from './data/eventContext';
 import Home from './pages/Home';
 import { TabProvider } from './data/tabContext';
+import { TableProvider } from './data/tableContext';
 
 
 const darkTheme = createTheme({
@@ -18,12 +19,14 @@ export default function App() {
   return (
     <EventProvider>
       <TabProvider>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-            <Container maxWidth='xl'>
+        <TableProvider>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+              <Container maxWidth='xl'>
               <Home />
             </Container>
-        </ThemeProvider>
+          </ThemeProvider>
+        </TableProvider>
       </TabProvider>
     </EventProvider>
   );

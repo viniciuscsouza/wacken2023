@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { ReactNode, createContext, useState } from 'react'
 
 interface TabContextProps {
   tabValue: number;
@@ -6,17 +6,17 @@ interface TabContextProps {
 }
 
 interface TabProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-export const TabContext = createContext<TabContextProps | undefined>(undefined);
+export const TabContext = createContext<TabContextProps | undefined>(undefined)
 
 export const TabProvider = ({ children }: TabProviderProps) => {
-  const [tabValue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState(0)
 
   const handleTabChange = (newValue: number) => {
-    setTabValue(newValue);
-  };
+    setTabValue(newValue)
+  }
 
   return (
     <TabContext.Provider value={{ tabValue, handleTabChange }}>

@@ -12,9 +12,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Checkbox } from '@mui/material';
 import { TabContext } from '../../data/tabContext';
+import { TableContext } from './../../data/tableContext';
 
 interface FestivalEvent {
   index: number;
+  uid: number;
   band: string;
   stage: string;
   festivalDay: {
@@ -44,13 +46,17 @@ function getWeekDayName(number: number): string | null {
 }
 
 export default function BasicTable() {
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [selected, setSelected] = React.useState<readonly number[]>([]);
   const eventData = useContext(EventContext)
   const { tabValue } = useContext(TabContext)!
+  const { attendees, updateAttendees } = useContext(TableContext)
+
+  const user_uid = 'Vinicius'
   
   const rows: FestivalEvent[] = eventData?.map((data, index) => {
     return {
       index: index,
+      uid: data.uid,
       band: data.artists[0].title,
       stage: data.stage.title,
       festivalDay: {
@@ -63,12 +69,12 @@ export default function BasicTable() {
 
   const sortedRows = sortEventsByStartTime(rows);
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: readonly string[] = [];
+  const handleClick = (event: React.MouseEvent<unknown>, uid: number) => {
+    const selectedIndex = selected.indexOf(uid);
+    let newSelected: readonly number[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, uid);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -79,11 +85,11 @@ export default function BasicTable() {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
+    updateAttendees(user_uid, uid)
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const isSelected = (uid: number) => selected.indexOf(uid) !== -1;
 
   return (
     <TableContainer component={Paper}>
@@ -99,17 +105,17 @@ export default function BasicTable() {
         </TableHead>
         <TableBody>
           { sortedRows !== undefined && sortedRows.map((row) => {
-            const isItemSelected = isSelected(row.band);
+            const isItemSelected = isSelected(row.uid);
             const labelId = `enhanced-table-checkbox-${row.index}`;
             const weekDayName = getWeekDayName(tabValue)
             if (row.festivalDay.day === weekDayName)
             return (
               <TableRow
                 hover
-                onClick={(event) => handleClick(event, row.band)}
+                onClick={(event) => handleClick(event, row.uid)}
                 role="checkbox"
                 tabIndex={-1}
-                key={row.index}
+                key={row.uid}
                 selected={isItemSelected}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
