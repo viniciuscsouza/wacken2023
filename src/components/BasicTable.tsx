@@ -13,8 +13,10 @@ import Paper from '@mui/material/Paper';
 import { Checkbox } from '@mui/material';
 import { TabContext } from '../data/tabContext';
 import { TableContext } from '../data/tableContext';
+import { sortEventsByStartTime } from '../utils/sortEventsByStartTime';
+import { getWeekDayName } from '../utils/getWeekDay';
 
-interface FestivalEvent {
+export interface FestivalEvent {
   index: number;
   uid: number;
   band: string;
@@ -24,25 +26,6 @@ interface FestivalEvent {
     start: string;
     end: string;
   };
-}
-
-function sortEventsByStartTime(events: FestivalEvent[]): FestivalEvent[] {
-  return events.sort((a, b) => {
-    const startTimeA = parseInt(a.festivalDay.start)
-    const startTimeB = parseInt(b.festivalDay.start)
-    
-    return startTimeA - startTimeB;
-  });
-}
-
-function getWeekDayName(number: number): string | null {
-  const weekDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-  if (number >= 0 && number <= 5) {
-    return weekDay[number]
-  } else {
-    return null
-  }
 }
 
 export default function BasicTable() {

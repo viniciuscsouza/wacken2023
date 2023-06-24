@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Fab from '@mui/material/Fab';
+import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
 import Modal from '@mui/material/Modal';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -11,10 +11,15 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import convertToHourAndMinute from '../utils/convertToHourAndMinute';
+import { TabContext } from '../data/tabContext';
+import { getWeekDayName } from '../utils/getWeekDay';
+import { Typography } from '@mui/material';
+import { translateDayOfWeek } from '../utils/translateDayOfWeek';
 
 export interface TimeLineProps {
   start?: string;
   band?: string;
+  day?: string;
 }
 
 interface BasicTimneLineModalProps {
@@ -39,10 +44,20 @@ export default function BasicTimneLineModal({data}: BasicTimneLineModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { tabValue } = React.useContext(TabContext)!
+  const weekDayName = getWeekDayName(tabValue) || ''
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Box sx={{ '& > :not(style)': { m: 1 }}}>
+        <Fab 
+          color="primary" 
+          aria-label="add" 
+          onClick={handleOpen}
+          >
+          <ViewTimelineIcon />
+        </Fab>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
@@ -50,19 +65,25 @@ export default function BasicTimneLineModal({data}: BasicTimneLineModalProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography variant="h4" align="center">
+            {translateDayOfWeek(weekDayName)}
+          </Typography>
           <Timeline position="alternate">
-            {data.map((item, index) => (
-              <TimelineItem>
-                <TimelineOppositeContent color="text.secondary">
-                  {convertToHourAndMinute(item.start!)}
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>{item.band}</TimelineContent>
-              </TimelineItem>
-            ))}
+            {data.map((item, index) => {
+              if (item.day === weekDayName)
+              return (
+                  <TimelineItem>
+                    <TimelineOppositeContent color="text.secondary">
+                      {convertToHourAndMinute(item.start!)}
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                      <TimelineDot />
+                      <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent>{item.band}</TimelineContent>
+                  </TimelineItem>
+              )}
+            )}
           </Timeline>
         </Box>
       </Modal>
