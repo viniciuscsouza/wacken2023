@@ -4,6 +4,8 @@ import BasicTable from "../components/BasicTable/BasicTable";
 import { TableContext } from "../data/tableContext";
 import { EventContext } from "../data/eventContext";
 import { Container } from "@mui/material";
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import Timeline, { TimeLineProps } from "../components/BasicTable/Timeline"
 
 
@@ -11,6 +13,8 @@ export default function Home(){
   const eventData = useContext(EventContext)
   const { attendees } = useContext(TableContext)
   const [data, setData] = React.useState([{}])
+  
+  const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
   const showsList = attendees.map((data) => {
     const attendee = {
@@ -39,7 +43,11 @@ export default function Home(){
 
   return (
     <div>
-      <h2>WOA 23</h2> 
+      <h4>
+        <Link href="https://github.com/viniciuscsouza/wacken2023" underline="hover">
+          {'WOA 23 - repo'}
+        </Link>
+      </h4>
       <Container maxWidth="lg">
         <Container sx={{display: 'flex', flexDirection: 'row'}}>
           <Container sx={{display: 'flex', flexDirection: 'column'}}>
