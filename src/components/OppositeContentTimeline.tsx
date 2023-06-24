@@ -6,7 +6,7 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
-import convertToHourAndMinute from '../../utils/convertToHourAndMinute';
+import convertToHourAndMinute from '../utils/convertToHourAndMinute';
 
 export interface TimeLineProps {
   start?: string;
@@ -18,6 +18,7 @@ interface Props {
 
 export default function OppositeContentTimeline({data}: Props) {
   return (
+    <div>
     <Timeline position="alternate">
       {data.map((item, index) => (
         <TimelineItem>
@@ -32,5 +33,6 @@ export default function OppositeContentTimeline({data}: Props) {
         </TimelineItem>
       ))}
     </Timeline>
+    </div>
   );
 }

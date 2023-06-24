@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { TabContext } from '../../data/tabContext';
+import { TabContext } from '../data/tabContext';
 
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-export default function CenteredTabs({children}: any) {
+export default function ScrollableTabs({children}: any) {
   const { tabValue, handleTabChange } = React.useContext(TabContext)!;
 
   const handleChange  = (event: React.SyntheticEvent, newValue: number) => {
@@ -17,8 +17,9 @@ export default function CenteredTabs({children}: any) {
       <Tabs 
         value={tabValue} 
         onChange={handleChange} 
-        centered
         textColor="inherit"
+        variant="scrollable"
+        scrollButtons="auto"
         indicatorColor="primary"
         >
           <Tab label="Segunda-feira" />

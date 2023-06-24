@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { EventContext } from '../../data/eventContext';
-import convertToHourAndMinute from '../../utils/convertToHourAndMinute';
+import { EventContext } from '../data/eventContext';
+import convertToHourAndMinute from '../utils/convertToHourAndMinute';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,8 +11,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Checkbox } from '@mui/material';
-import { TabContext } from '../../data/tabContext';
-import { TableContext } from './../../data/tableContext';
+import { TabContext } from '../data/tabContext';
+import { TableContext } from '../data/tableContext';
 
 interface FestivalEvent {
   index: number;
@@ -95,16 +95,15 @@ export default function BasicTable() {
   const isSelected = (uid: number) => selected.indexOf(uid) !== -1;
 
   return (
-    <TableContainer component={Paper} sx={{height: 640}}>
-      {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
+    <TableContainer component={Paper}>
       <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell> 🤘 </TableCell>
-            <TableCell>Banda</TableCell>
-            <TableCell align="right">Palco</TableCell>
             <TableCell align="right">Começa</TableCell>
             <TableCell align="right">Termina</TableCell>
+            <TableCell>Banda</TableCell>
+            <TableCell align="right">Palco</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -132,10 +131,10 @@ export default function BasicTable() {
                       }}
                       />
                   </TableCell>
-                <TableCell component="th" scope="row">{row.band}</TableCell>
-                <TableCell align="right">{row.stage}</TableCell>
                 <TableCell align="right">{row.festivalDay.start}</TableCell>
                 <TableCell align="right">{row.festivalDay.end}</TableCell>
+                <TableCell component="th" scope="row">{row.band}</TableCell>
+                <TableCell align="right">{row.stage}</TableCell>
               </TableRow>
             )}
           )}
