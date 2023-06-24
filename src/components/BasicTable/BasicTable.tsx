@@ -95,9 +95,9 @@ export default function BasicTable() {
   const isSelected = (uid: number) => selected.indexOf(uid) !== -1;
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{height: 640}}>
       {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
-      <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
+      <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell> 🤘 </TableCell>
