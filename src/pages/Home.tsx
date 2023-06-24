@@ -3,6 +3,8 @@ import Tab from "../components/BasicTable/Tab";
 import BasicTable from "../components/BasicTable/BasicTable";
 import { TableContext } from "../data/tableContext";
 import { EventContext } from "../data/eventContext";
+import { Container } from "@mui/material";
+import Timeline from "../components/BasicTable/Timeline"
 
 
 export default function Home(){
@@ -17,15 +19,29 @@ export default function Home(){
     return attendee
   })
 
+  const data = [
+    {start: 'start', band: 'band'},
+    {start: 'start', band: 'band'},
+    {start: 'start', band: 'band'},
+    {start: 'start', band: 'band'},
+    {start: 'start', band: 'band'},
+  ]
 
   return (
     <div>
       <h1>Home</h1> 
-      <h4>{`Adicionar firebase: ${showsList.length !== 0 ? showsList[0]["user_uid"] : ' ' }`}</h4>
-      <h4>{`Clicou uid: ${showsList.length !== 0 ? showsList[0].uid : ' '}`}</h4>
-      <Tab>
-        <BasicTable />
-      </Tab>
+      <h4>{`user: ${showsList.length !== 0 ? showsList[0]["user_uid"] : ' ' }`}</h4>
+      <h4>{`uid: ${showsList.length !== 0 ? showsList[0].uid : ' '}`}</h4>
+      <Container maxWidth="lg">
+        <Container sx={{display: 'flex', flexDirection: 'row'}}>
+          <Container sx={{display: 'flex', flexDirection: 'column'}}>
+            <Tab>
+              <BasicTable />
+            </Tab>
+          </Container>
+          <Timeline timeLineEvent={data} />
+        </Container>
+      </Container>
     </div>
   )
 }

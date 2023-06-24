@@ -11,7 +11,7 @@ interface Attendees {
 
 interface TableContextProps {
   attendees: Attendees[]
-  updateAttendees: (user_uid: string, uid: number) => void
+  updateAttendees: (user_uid: string, uid: number[]) => void
 }
 
 export const TableContext = createContext<TableContextProps>({
@@ -22,21 +22,21 @@ export const TableContext = createContext<TableContextProps>({
 export const TableProvider = ({children}: TableProviderProps) => {
   const [attendees, setAttendees] = useState<Attendees[]>([])
 
-  const updateAttendees = (user_uid: string, uid: number) => {
+  const updateAttendees = (user_uid: string, uid: number[]) => {
     const existingAttendee = attendees.findIndex((data) => data.user_uid === user_uid)
 
     if (existingAttendee !== -1){
       const updatedAttendee = [...attendees]
       updatedAttendee[existingAttendee] = {
         ...updatedAttendee[existingAttendee],
-        uid: [...updatedAttendee[existingAttendee].uid, uid]
+        uid: uid
       }
       setAttendees(updatedAttendee)
 
     } else {
       const newAttendeeObject: Attendees = {
         user_uid: user_uid,
-        uid: [uid]
+        uid: uid
       }
 
       setAttendees([...attendees, newAttendeeObject])

@@ -28,8 +28,8 @@ interface FestivalEvent {
 
 function sortEventsByStartTime(events: FestivalEvent[]): FestivalEvent[] {
   return events.sort((a, b) => {
-    const startTimeA = parseInt(a.festivalDay.start);
-    const startTimeB = parseInt(b.festivalDay.start);
+    const startTimeA = parseInt(a.festivalDay.start)
+    const startTimeB = parseInt(b.festivalDay.start)
     
     return startTimeA - startTimeB;
   });
@@ -39,19 +39,23 @@ function getWeekDayName(number: number): string | null {
   const weekDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   if (number >= 0 && number <= 5) {
-    return weekDay[number];
+    return weekDay[number]
   } else {
-    return null;
+    return null
   }
 }
 
 export default function BasicTable() {
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
+  const [selected, setSelected] = React.useState<number[]>([]);
   const eventData = useContext(EventContext)
   const { tabValue } = useContext(TabContext)!
   const { attendees, updateAttendees } = useContext(TableContext)
 
   const user_uid = 'Vinicius'
+
+  React.useEffect(() => {
+    updateAttendees(user_uid, selected)
+  }, [selected])
   
   const rows: FestivalEvent[] = eventData?.map((data, index) => {
     return {
@@ -70,30 +74,30 @@ export default function BasicTable() {
   const sortedRows = sortEventsByStartTime(rows);
 
   const handleClick = (event: React.MouseEvent<unknown>, uid: number) => {
-    const selectedIndex = selected.indexOf(uid);
-    let newSelected: readonly number[] = [];
+    const selectedIndex = selected.indexOf(uid)
+    let newSelected: number[] = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, uid);
+      newSelected = newSelected.concat(selected, uid)
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selected.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1),
       );
     }
-    setSelected(newSelected);
-    updateAttendees(user_uid, uid)
+    setSelected(newSelected)
   };
 
   const isSelected = (uid: number) => selected.indexOf(uid) !== -1;
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
+      <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell> 🤘 </TableCell>
