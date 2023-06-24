@@ -44,7 +44,7 @@ export default function Home(){
   return (
     <div>
       <h4>
-        <Link href="https://github.com/viniciuscsouza/wacken2023" underline="hover">
+        <Link href="https://github.com/viniciuscsouza/woa23" underline="hover">
           {'WOA 23 - repo'}
         </Link>
       </h4>
