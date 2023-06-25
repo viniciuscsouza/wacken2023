@@ -46,7 +46,7 @@ export default function BasicTable() {
       index: index,
       uid: data.uid,
       band: data.artists[0].title,
-      externalMedia: data.artists[0].assets[0]?.externalMediaSource,
+      externalMedia: data.artists[0].assets[0]?.externalMediaSource || `https://www.youtube.com/results?search_query=${data.artists[0].title}`,
       stage: data.stage.title,
       festivalDay: {
         day: data.festivalday.title,
