@@ -10,7 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Link } from '@mui/material';
 import { TabContext } from '../data/tabContext';
 import { TableContext } from '../data/tableContext';
 import { sortEventsByStartTime } from '../utils/sortEventsByStartTime';
@@ -20,6 +20,7 @@ export interface FestivalEvent {
   index: number;
   uid: number;
   band: string;
+  externalMedia: string;
   stage: string;
   festivalDay: {
     day: string;
@@ -32,7 +33,7 @@ export default function BasicTable() {
   const [selected, setSelected] = React.useState<number[]>([]);
   const eventData = useContext(EventContext)
   const { tabValue } = useContext(TabContext)!
-  const { attendees, updateAttendees } = useContext(TableContext)
+  const { updateAttendees } = useContext(TableContext)
 
   const user_uid = 'Vinicius'
 
@@ -45,6 +46,7 @@ export default function BasicTable() {
       index: index,
       uid: data.uid,
       band: data.artists[0].title,
+      externalMedia: data.artists[0].assets[0]?.externalMediaSource,
       stage: data.stage.title,
       festivalDay: {
         day: data.festivalday.title,
@@ -116,7 +118,11 @@ export default function BasicTable() {
                   </TableCell>
                 <TableCell align="right">{row.festivalDay.start}</TableCell>
                 <TableCell align="right">{row.festivalDay.end}</TableCell>
-                <TableCell component="th" scope="row">{row.band}</TableCell>
+                <TableCell component="th" scope="row">
+                  <Link href={`${row.externalMedia}`} target="_blank">
+                    {row.band}
+                  </Link>
+                </TableCell>
                 <TableCell align="right">{row.stage}</TableCell>
               </TableRow>
             )}

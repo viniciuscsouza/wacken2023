@@ -19,6 +19,7 @@ import { translateDayOfWeek } from '../utils/translateDayOfWeek';
 export interface TimeLineProps {
   start?: string;
   band?: string;
+  stage?: string;
   day?: string;
 }
 
@@ -33,11 +34,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 480,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius: 4,
+  fontSize: 8
 };
 
 export default function BasicTimneLineModal({data}: BasicTimneLineModalProps) {
@@ -65,22 +68,31 @@ export default function BasicTimneLineModal({data}: BasicTimneLineModalProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography variant="h4" align="center">
+          <Typography fontSize={20} fontWeight={600} align="center">
             {translateDayOfWeek(weekDayName)}
           </Typography>
-          <Timeline position="alternate">
+          <Timeline>
             {data.map((item, index) => {
               if (item.day === weekDayName)
               return (
                   <TimelineItem>
                     <TimelineOppositeContent color="text.secondary">
-                      {convertToHourAndMinute(item.start!)}
+                      <Typography fontSize={14}>
+                        {convertToHourAndMinute(item.start!)}
+                      </Typography>
                     </TimelineOppositeContent>
                     <TimelineSeparator>
                       <TimelineDot />
                       <TimelineConnector />
                     </TimelineSeparator>
-                    <TimelineContent>{item.band}</TimelineContent>
+                    <TimelineContent>
+                      <Typography fontSize={14} fontWeight={600}>
+                        {item.band}
+                      </Typography>
+                      <Typography fontSize={12} color={'#aaaaaa'}>
+                        {item.stage}
+                      </Typography>
+                    </TimelineContent>
                   </TimelineItem>
               )}
             )}

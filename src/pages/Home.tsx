@@ -30,6 +30,7 @@ export default function Home(){
         fiteredEvent.push({
           start: event.start, 
           band: event.artists[0].title,
+          stage: event.stage.title,
           day: event.festivalday.title
         })
       }
@@ -44,16 +45,14 @@ export default function Home(){
           {'WOA 23 - Repositório Github'}
         </Link>
       </h4>
-      <Container maxWidth="md">
-        <Container sx={{display: 'flex', flexDirection: 'row'}}>
-          <Container sx={{display: 'flex', flexDirection: 'column', position: 'relative'}}>
-            <ScrollableTabs>
-              <BasicTable />
-              <Container sx={{position: 'fixed', top: 100, left: '80%',  zIndex: 1}}>
-                <BasicTimneLineModal data={data}/>
-              </Container>
-            </ScrollableTabs>
-          </Container>
+      <Container sx={{display: 'flex', flexDirection: 'row'}}>
+        <Container sx={{display: 'flex', flexDirection: 'column', position: 'relative'}}>
+          <ScrollableTabs>
+            <BasicTable />
+            <Container sx={{position: 'fixed', top: 100, left: '90%',  zIndex: 1}}>
+              <BasicTimneLineModal data={data}/>
+            </Container>
+          </ScrollableTabs>
         </Container>
       </Container>
     </div>
