@@ -49,7 +49,7 @@ export default function Home(){
         <Container sx={{display: 'flex', flexDirection: 'column', position: 'relative'}}>
           <ScrollableTabs>
             <BasicTable />
-            <Container sx={{position: 'fixed', top: 100, left: '90%',  zIndex: 1}}>
+            <Container sx={{position: 'fixed', bottom: '2%', left: '75%',  zIndex: 1}}>
               <BasicTimneLineModal data={data}/>
             </Container>
           </ScrollableTabs>
